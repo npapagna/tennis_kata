@@ -16,7 +16,7 @@ class TennisGame
   attr_reader :game_score
 
   def initialize
-    @game_score = GameScore.non_finished Point.love, Point.love
+    @game_score = GameScore.initial
     @player_1_serving = true
   end
 

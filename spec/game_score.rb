@@ -1,5 +1,9 @@
 class GameScore
 
+  def self.initial
+    self.non_finished Point.love, Point.love
+  end
+
   def self.deuce
     @deuce ||= DeuceGameScore.new
   end
