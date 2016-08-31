@@ -1,10 +1,12 @@
 require 'spec_helper'
-require_relative 'game_score'
-require_relative 'finished_game_score'
-require_relative 'non_finished_game_score'
-require_relative 'deuce_game_score'
-require_relative 'advantage_player1_game_score'
-require_relative 'advantage_player2_game_score'
+
+require_relative 'scores/game_score'
+require_relative 'scores/finished_game_score'
+require_relative 'scores/non_finished_game_score'
+require_relative 'scores/deuce_game_score'
+require_relative 'scores/advantage_player1_game_score'
+require_relative 'scores/advantage_player2_game_score'
+
 require_relative 'points/point'
 require_relative 'points/love_point'
 require_relative 'points/fifteen_point'
