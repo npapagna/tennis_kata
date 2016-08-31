@@ -19,7 +19,7 @@ class AdvantagePlayer2
   end
 
   def player_2_scored
-    GamePlayer2
+    GameScore.new Forty, Game
   end
 
 end
@@ -27,7 +27,7 @@ end
 class AdvantagePlayer1
 
   def player_1_scored
-    GamePlayer1
+    GameScore.new Game, Forty
   end
 
   def player_2_scored
@@ -112,8 +112,6 @@ Love = LovePoint.new
 Deuce = DeucePoint.new
 AdvantagePlayer1 = AdvantagePlayer1.new
 AdvantagePlayer2 = AdvantagePlayer2.new
-GamePlayer1 = :gamePlayer1
-GamePlayer2 = :gamePlayer2
 
 class GameScore
 
@@ -327,7 +325,7 @@ describe 'My behaviour' do
     tennis_game.win_point
     tennis_game.win_point
 
-    expect(tennis_game.game_score).to eq GamePlayer2
+    assert_game_score_is Forty, Game
   end
 
   it '018' do
@@ -342,7 +340,7 @@ describe 'My behaviour' do
     tennis_game.win_point
     tennis_game.win_point
 
-    expect(tennis_game.game_score).to eq GamePlayer1
+    assert_game_score_is Game, Forty
   end
 
   it '019' do
