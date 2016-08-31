@@ -30,7 +30,12 @@ class TennisGame
       return
     end
 
-    @player_1_score = :game
+    if @player_1_score == 40
+      @player_1_score = :game
+      return
+    end
+
+    fail 'Game over'
   end
 
 end
@@ -76,6 +81,17 @@ describe 'My behaviour' do
     tennis_game.win_point
 
     assert_game_score_is game, love
+  end
+
+  it '006' do
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+
+    expect{ tennis_game.win_point }.to raise_error('Game over') do
+      assert_game_score_is game, love
+    end
   end
 
   def assert_game_score_is player_1_score, player_2_score
