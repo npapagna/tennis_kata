@@ -20,7 +20,12 @@ class TennisGame
       return
     end
 
-    @player_1_score = 30
+    if @player_1_score == 15
+      @player_1_score = 30
+      return
+    end
+
+    @player_1_score = 40
   end
 
 end
@@ -30,6 +35,7 @@ describe 'My behaviour' do
   let(:love) { 0 }
   let(:fifteen) { 15 }
   let(:thirty) { 30 }
+  let(:forty) { 40 }
   let(:tennis_game) { TennisGame.new }
 
   it '001' do
@@ -47,6 +53,14 @@ describe 'My behaviour' do
     tennis_game.win_point
 
     assert_game_score_is thirty, love
+  end
+
+  it '004' do
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+
+    assert_game_score_is forty, love
   end
 
   def assert_game_score_is player_1_score, player_2_score
