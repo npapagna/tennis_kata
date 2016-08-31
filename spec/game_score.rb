@@ -24,6 +24,14 @@ class GameScore
     FinishedGameScore.new player_points, opponent_points
   end
 
+  def self.player_1_won opponent_score
+    self.finished Point.game, opponent_score
+  end
+
+  def self.player_2_won opponent_score
+    self.finished opponent_score, Point.game
+  end
+
   def player_1_points
     self.subclass_responsibility
   end
