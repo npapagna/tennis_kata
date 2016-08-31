@@ -2,23 +2,12 @@ require 'spec_helper'
 require_relative 'game_score'
 require_relative 'finished_game_score'
 require_relative 'non_finished_game_score'
-
-class DeucePoint
-
-  def player_1_scored
-    AdvantagePlayer1
-  end
-
-  def player_2_scored
-    AdvantagePlayer2
-  end
-
-end
+require_relative 'deuce_game_score'
 
 class AdvantagePlayer2
 
   def player_1_scored
-    Deuce
+    GameScore.deuce
   end
 
   def player_2_scored
@@ -34,7 +23,7 @@ class AdvantagePlayer1
   end
 
   def player_2_scored
-    Deuce
+    GameScore.deuce
   end
 
 end
@@ -55,14 +44,14 @@ Forty = FortyPoint.new
 class ThirtyPoint
   def player_1_scored opponent_score
     if opponent_score == Forty
-      return Deuce
+      return GameScore.deuce
     end
 
     GameScore.non_finished Forty, opponent_score
   end
   def player_2_scored opponent_score
     if opponent_score == Forty
-      return Deuce
+      return GameScore.deuce
     end
     GameScore.non_finished opponent_score, Forty
   end
@@ -95,8 +84,6 @@ end
 
 Love = LovePoint.new
 
-
-Deuce = DeucePoint.new
 AdvantagePlayer1 = AdvantagePlayer1.new
 AdvantagePlayer2 = AdvantagePlayer2.new
 
@@ -132,6 +119,7 @@ describe 'My behaviour' do
   let(:thirty) { Thirty }
   let(:forty) { Forty }
   let(:game) { Game }
+  let(:deuce) { GameScore.deuce }
   let(:tennis_game) { TennisGame.new }
 
   it '001' do
@@ -261,7 +249,7 @@ describe 'My behaviour' do
     tennis_game.win_point
     tennis_game.win_point
 
-    expect(tennis_game.game_score).to eq Deuce
+    expect(tennis_game.game_score).to eq deuce
   end
 
   it '015' do
@@ -332,7 +320,7 @@ describe 'My behaviour' do
     tennis_game.lose_point
     tennis_game.win_point
 
-    expect(tennis_game.game_score).to eq Deuce
+    expect(tennis_game.game_score).to eq deuce
   end
 
   it '020' do
@@ -348,7 +336,7 @@ describe 'My behaviour' do
     tennis_game.lose_point
     tennis_game.win_point
 
-    expect(tennis_game.game_score).to eq Deuce
+    expect(tennis_game.game_score).to eq deuce
   end
 
   def assert_game_score_is player_1_score, player_2_score

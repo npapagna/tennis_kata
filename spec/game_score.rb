@@ -1,5 +1,9 @@
 class GameScore
 
+  def self.deuce
+    @deuce ||= DeuceGameScore.new
+  end
+
   def self.non_finished player_points, opponent_points
     NonFinishedGameScore.new player_points, opponent_points
   end
