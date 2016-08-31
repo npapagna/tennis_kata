@@ -36,9 +36,22 @@ class AdvantagePlayer1
 
 end
 
-class GamePoint
+Game = Object.new
 
-  def player_1_scored opponent_score
+class FinalGameScore
+
+  attr_reader :player_1, :player_2
+
+  def initialize player_1_score, player_2_score
+    @player_1 = player_1_score
+    @player_2 = player_2_score
+  end
+
+  def player_1_scored
+    notify_game_is_over
+  end
+
+  def player_2_scored
     notify_game_is_over
   end
 
@@ -46,20 +59,14 @@ class GamePoint
     fail 'Game over'
   end
 
-  def player_2_scored opponent_score
-    notify_game_is_over
-  end
-
 end
-
-Game = GamePoint.new
 
 class FortyPoint
   def player_1_scored opponent_score
-    GameScore.new Game, opponent_score
+    FinalGameScore.new Game, opponent_score
   end
   def player_2_scored opponent_score
-    GameScore.new opponent_score, Game
+    FinalGameScore.new opponent_score, Game
   end
 end
 
@@ -261,6 +268,19 @@ describe 'My behaviour' do
     tennis_game.win_point
     tennis_game.win_point
     tennis_game.win_point
+
+    expect{ tennis_game.win_point }.to raise_error('Game over') do
+      assert_game_score_is love, game
+    end
+  end
+
+  it '012b' do
+    tennis_game.lose_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.lose_point
 
     expect{ tennis_game.win_point }.to raise_error('Game over') do
       assert_game_score_is love, game
