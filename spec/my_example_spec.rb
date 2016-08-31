@@ -40,11 +40,11 @@ Game = Object.new
 
 class FinalGameScore
 
-  attr_reader :player_1, :player_2
+  attr_reader :player_1_points, :player_2_points
 
   def initialize player_1_score, player_2_score
-    @player_1 = player_1_score
-    @player_2 = player_2_score
+    @player_1_points = player_1_score
+    @player_2_points = player_2_score
   end
 
   def player_1_scored
@@ -127,11 +127,11 @@ class GameScore
     @player_2_score = b
   end
 
-  def player_1
+  def player_1_points
     @player_1_score
   end
 
-  def player_2
+  def player_2_points
     @player_2_score
   end
 
@@ -395,8 +395,8 @@ describe 'My behaviour' do
   end
 
   def assert_game_score_is player_1_score, player_2_score
-    expect(tennis_game.game_score.player_1).to eq player_1_score
-    expect(tennis_game.game_score.player_2).to eq player_2_score
+    expect(tennis_game.game_score.player_1_points).to eq player_1_score
+    expect(tennis_game.game_score.player_2_points).to eq player_2_score
   end
 
 end
