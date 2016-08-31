@@ -40,7 +40,27 @@ class TennisGame
 
       fail 'Game over'
     else
-      @player_2_score = 15
+      if @player_2_score == 0
+        @player_2_score = 15
+        return
+      end
+
+      if @player_2_score == 15
+        @player_2_score = 30
+        return
+      end
+
+      if @player_2_score == 30
+        @player_2_score = 40
+        return
+      end
+
+      if @player_2_score == 40
+        @player_2_score = :game
+        return
+      end
+
+      fail 'Game over'
     end
   end
 
@@ -115,6 +135,45 @@ describe 'My behaviour' do
     tennis_game.win_point
 
     assert_game_score_is love, fifteen
+  end
+
+  it '009' do
+    tennis_game.lose_point
+    tennis_game.win_point
+    tennis_game.win_point
+
+    assert_game_score_is love, thirty
+  end
+
+  it '010' do
+    tennis_game.lose_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+
+    assert_game_score_is love, forty
+  end
+
+  it '011' do
+    tennis_game.lose_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+
+    assert_game_score_is love, game
+  end
+
+  it '012' do
+    tennis_game.lose_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+
+    expect{ tennis_game.win_point }.to raise_error('Game over') do
+      assert_game_score_is love, game
+    end
   end
 
   def assert_game_score_is player_1_score, player_2_score
