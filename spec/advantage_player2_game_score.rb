@@ -5,7 +5,7 @@ class AdvantagePlayer2GameScore < GameScore
   end
 
   def player_2_scored
-    GameScore.non_finished Forty, Game
+    GameScore.non_finished Point.forty, Point.game
   end
 
 end

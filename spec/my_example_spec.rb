@@ -11,18 +11,12 @@ require_relative 'points/fifteen_point'
 require_relative 'points/thirty_point'
 require_relative 'points/forty_point'
 
-Love = Point.love
-Fifteen = Point.fifteen
-Thirty = Point.thirty
-Forty = Point.forty
-Game = Point.game
-
 class TennisGame
 
   attr_reader :game_score
 
   def initialize
-    @game_score = GameScore.non_finished Love, Love
+    @game_score = GameScore.non_finished Point.love, Point.love
     @player_1_serving = true
   end
 
@@ -42,11 +36,11 @@ end
 
 describe 'My behaviour' do
 
-  let(:love) { Love }
-  let(:fifteen) { Fifteen }
-  let(:thirty) { Thirty }
-  let(:forty) { Forty }
-  let(:game) { Game }
+  let(:love) { Point.love }
+  let(:fifteen) { Point.fifteen }
+  let(:thirty) { Point.thirty }
+  let(:forty) { Point.forty }
+  let(:game) { Point.game }
   let(:deuce) { GameScore.deuce }
   let(:advantage_player_1) { GameScore.advantage_player_1 }
   let(:advantage_player_2)  {GameScore.advantage_player_2 }
@@ -220,7 +214,7 @@ describe 'My behaviour' do
     tennis_game.win_point
     tennis_game.win_point
 
-    assert_game_score_is Forty, Game
+    assert_game_score_is forty, game
   end
 
   it '018' do
@@ -235,7 +229,7 @@ describe 'My behaviour' do
     tennis_game.win_point
     tennis_game.win_point
 
-    assert_game_score_is Game, Forty
+    assert_game_score_is game, forty
   end
 
   it '019' do

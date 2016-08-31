@@ -1,23 +1,23 @@
 class Point
 
   def self.love
-    LovePoint.new
+    @love ||= LovePoint.new
   end
 
   def self.fifteen
-    FifteenPoint.new
+    @fifteen ||= FifteenPoint.new
   end
 
   def self.thirty
-    ThirtyPoint.new
+    @thirty ||= ThirtyPoint.new
   end
 
   def self.forty
-    FortyPoint.new
+    @forty ||= FortyPoint.new
   end
 
   def self.game
-    Object.new
+    @game ||= Object.new
   end
 
   def player_1_scored opponent_score
