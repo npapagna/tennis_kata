@@ -131,42 +131,10 @@ class GameScore
   end
 
   def player_1_scored
-    if @player_1_score == Love
-      return @player_1_score.player_1_scored @player_2_score
-    end
-
-    if @player_1_score == Fifteen
-      return @player_1_score.player_1_scored @player_2_score
-    end
-
-    if @player_1_score == Thirty
-      return @player_1_score.player_1_scored @player_2_score
-    end
-
-    if @player_1_score == Forty
-      return @player_1_score.player_1_scored @player_2_score
-    end
-
     @player_1_score.player_1_scored @player_2_score
   end
 
   def player_2_scored
-    if @player_2_score == Love
-      return @player_2_score.player_2_scored @player_1_score
-    end
-
-    if @player_2_score == Fifteen
-      return @player_2_score.player_2_scored @player_1_score
-    end
-
-    if @player_2_score == Thirty
-      return @player_2_score.player_2_scored @player_1_score
-    end
-
-    if @player_2_score == Forty
-      return @player_2_score.player_2_scored @player_1_score
-    end
-
     @player_2_score.player_2_scored @player_1_score
   end
 
