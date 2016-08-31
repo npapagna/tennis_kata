@@ -5,16 +5,17 @@ require_relative 'non_finished_game_score'
 require_relative 'deuce_game_score'
 require_relative 'advantage_player1_game_score'
 require_relative 'advantage_player2_game_score'
+require_relative 'points/point'
 require_relative 'points/love_point'
 require_relative 'points/fifteen_point'
 require_relative 'points/thirty_point'
 require_relative 'points/forty_point'
 
-Love = LovePoint.new
-Fifteen = FifteenPoint.new
-Thirty = ThirtyPoint.new
-Game = Object.new
-Forty = FortyPoint.new
+Love = Point.love
+Fifteen = Point.fifteen
+Thirty = Point.thirty
+Forty = Point.forty
+Game = Point.game
 
 class TennisGame
 

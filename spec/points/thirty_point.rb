@@ -1,4 +1,4 @@
-class ThirtyPoint
+class ThirtyPoint < Point
 
   def player_1_scored opponent_score
     if opponent_score == Forty

@@ -1,4 +1,4 @@
-class LovePoint
+class LovePoint < Point
 
   def player_1_scored opponent_score
     GameScore.non_finished Fifteen, opponent_score

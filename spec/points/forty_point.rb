@@ -1,4 +1,4 @@
-class FortyPoint
+class FortyPoint < Point
 
   def player_1_scored opponent_score
     GameScore.finished Game, opponent_score
