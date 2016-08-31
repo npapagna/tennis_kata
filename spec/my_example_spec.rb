@@ -12,14 +12,32 @@ class DeucePoint
 
 end
 
+class AdvantagePlayer2
+
+  def player_2_scored
+    GamePlayer2
+  end
+
+end
+
+class AdvantagePlayer1
+
+  def player_1_scored
+    GamePlayer1
+  end
+
+end
+
 Love = :love
 Fifteen = :fifteen
 Thirty = :thirty
 Forty = :forty
 Game = :game
 Deuce = DeucePoint.new
-AdvantagePlayer1 = :advantagePlayer1
-AdvantagePlayer2 = :advantagePlayer2
+AdvantagePlayer1 = AdvantagePlayer1.new
+AdvantagePlayer2 = AdvantagePlayer2.new
+GamePlayer1 = :gamePlayer1
+GamePlayer2 = :gamePlayer2
 
 class GameScore
 
@@ -268,6 +286,35 @@ describe 'My behaviour' do
     tennis_game.win_point
 
     expect(tennis_game.game_score).to eq AdvantagePlayer1
+  end
+
+  it '017' do
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.lose_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+
+    expect(tennis_game.game_score).to eq GamePlayer2
+  end
+
+  it '018' do
+    tennis_game.lose_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.lose_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+
+    expect(tennis_game.game_score).to eq GamePlayer1
   end
 
   def assert_game_score_is player_1_score, player_2_score
