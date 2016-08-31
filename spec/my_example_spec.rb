@@ -14,6 +14,10 @@ end
 
 class AdvantagePlayer2
 
+  def player_1_scored
+    Deuce
+  end
+
   def player_2_scored
     GamePlayer2
   end
@@ -24,6 +28,10 @@ class AdvantagePlayer1
 
   def player_1_scored
     GamePlayer1
+  end
+
+  def player_2_scored
+    Deuce
   end
 
 end
@@ -315,6 +323,37 @@ describe 'My behaviour' do
     tennis_game.win_point
 
     expect(tennis_game.game_score).to eq GamePlayer1
+  end
+
+  it '019' do
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.lose_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.lose_point
+    tennis_game.win_point
+
+    expect(tennis_game.game_score).to eq Deuce
+  end
+
+  it '020' do
+    tennis_game.lose_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.lose_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.lose_point
+    tennis_game.win_point
+
+    expect(tennis_game.game_score).to eq Deuce
   end
 
   def assert_game_score_is player_1_score, player_2_score
