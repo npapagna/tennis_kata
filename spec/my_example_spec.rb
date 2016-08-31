@@ -1,11 +1,25 @@
 require 'spec_helper'
 
+class DeucePoint
+
+  def player_1_scored
+    AdvantagePlayer1
+  end
+
+  def player_2_scored
+    AdvantagePlayer2
+  end
+
+end
+
 Love = :love
 Fifteen = :fifteen
 Thirty = :thirty
 Forty = :forty
 Game = :game
-Deuce = :deuce
+Deuce = DeucePoint.new
+AdvantagePlayer1 = :advantagePlayer1
+AdvantagePlayer2 = :advantagePlayer2
 
 class GameScore
 
@@ -25,22 +39,26 @@ class GameScore
   def player_1_scored
     if @player_1_score == Love
       @player_1_score = Fifteen
-      return
+      return self
     end
 
     if @player_1_score == Fifteen
       @player_1_score = Thirty
-      return
+      return self
+    end
+
+    if @player_1_score == Thirty && @player_2_score == Forty
+      return Deuce
     end
 
     if @player_1_score == Thirty
       @player_1_score = Forty
-      return
+      return self
     end
 
     if @player_1_score == Forty
       @player_1_score = Game
-      return
+      return self
     end
 
     fail 'Game over'
@@ -49,22 +67,26 @@ class GameScore
   def player_2_scored
     if @player_2_score == Love
       @player_2_score = Fifteen
-      return
+      return self
     end
 
     if @player_2_score == Fifteen
       @player_2_score = Thirty
-      return
+      return self
+    end
+
+    if @player_1_score == Forty && @player_2_score == Thirty
+      return Deuce
     end
 
     if @player_2_score == Thirty
       @player_2_score = Forty
-      return
+      return self
     end
 
     if @player_2_score == Forty
       @player_2_score = Game
-      return
+      return self
     end
 
     fail 'Game over'
@@ -83,13 +105,9 @@ class TennisGame
 
   def win_point
     if @player_1_serving
-      @game_score.player_1_scored
+      @game_score = @game_score.player_1_scored
     else
-      @game_score.player_2_scored
-    end
-
-    if @game_score.player_1 == Forty && @game_score.player_2 == Forty
-      @game_score = Deuce
+      @game_score = @game_score.player_2_scored
     end
   end
 
@@ -223,6 +241,33 @@ describe 'My behaviour' do
     tennis_game.win_point
 
     expect(tennis_game.game_score).to eq Deuce
+  end
+
+  it '015' do
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.lose_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+
+    expect(tennis_game.game_score).to eq AdvantagePlayer2
+  end
+
+  it '016' do
+    tennis_game.lose_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.lose_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+
+    expect(tennis_game.game_score).to eq AdvantagePlayer1
   end
 
   def assert_game_score_is player_1_score, player_2_score
