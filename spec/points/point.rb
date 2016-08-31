@@ -29,3 +29,8 @@ class Point
   end
 
 end
+
+require_relative 'love_point'
+require_relative 'fifteen_point'
+require_relative 'thirty_point'
+require_relative 'forty_point'

@@ -49,3 +49,9 @@ class GameScore
   end
 
 end
+
+require_relative 'finished_game_score'
+require_relative 'non_finished_game_score'
+require_relative 'deuce_game_score'
+require_relative 'advantage_player1_game_score'
+require_relative 'advantage_player2_game_score'
