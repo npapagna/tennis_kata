@@ -65,7 +65,7 @@ class TennisGame
   end
 
   def lose_point
-    @player_1_serving = false
+    @player_1_serving = !@player_1_serving
   end
 
 end
@@ -174,6 +174,14 @@ describe 'My behaviour' do
     expect{ tennis_game.win_point }.to raise_error('Game over') do
       assert_game_score_is love, game
     end
+  end
+
+  it '013' do
+    tennis_game.lose_point
+    tennis_game.lose_point
+    tennis_game.win_point
+
+    assert_game_score_is fifteen, love
   end
 
   def assert_game_score_is player_1_score, player_2_score
