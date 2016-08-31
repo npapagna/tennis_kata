@@ -38,6 +38,10 @@ class TennisGame
     fail 'Game over'
   end
 
+  def lose_point
+
+  end
+
 end
 
 describe 'My behaviour' do
@@ -92,6 +96,12 @@ describe 'My behaviour' do
     expect{ tennis_game.win_point }.to raise_error('Game over') do
       assert_game_score_is game, love
     end
+  end
+
+  it '007' do
+    tennis_game.lose_point
+
+    assert_game_score_is love, love
   end
 
   def assert_game_score_is player_1_score, player_2_score
