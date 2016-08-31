@@ -2,12 +2,20 @@ require 'spec_helper'
 
 class TennisGame
 
+  def initialize
+    @player_1_score = 0
+  end
+
   def player_1_score
-    0
+    @player_1_score
   end
 
   def player_2_score
     0
+  end
+
+  def win_point
+    @player_1_score = 15
   end
 
 end
@@ -15,10 +23,17 @@ end
 describe 'My behaviour' do
 
   let(:love) { 0 }
+  let(:fifteen) { 15 }
   let(:tennis_game) { TennisGame.new }
 
   it '001' do
     assert_game_score_is love, love
+  end
+
+  it '002' do
+    tennis_game.win_point
+
+    assert_game_score_is fifteen, love
   end
 
   def assert_game_score_is player_1_score, player_2_score
