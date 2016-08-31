@@ -67,9 +67,16 @@ Forty = FortyPoint.new
 
 class ThirtyPoint
   def player_1_scored opponent_score
+    if opponent_score == Forty
+      return Deuce
+    end
+
     GameScore.new Forty, opponent_score
   end
   def player_2_scored opponent_score
+    if opponent_score == Forty
+      return Deuce
+    end
     GameScore.new opponent_score, Forty
   end
 end
@@ -132,10 +139,6 @@ class GameScore
       return @player_1_score.player_1_scored @player_2_score
     end
 
-    if @player_1_score == Thirty && @player_2_score == Forty
-      return Deuce
-    end
-
     if @player_1_score == Thirty
       return @player_1_score.player_1_scored @player_2_score
     end
@@ -154,10 +157,6 @@ class GameScore
 
     if @player_2_score == Fifteen
       return @player_2_score.player_2_scored @player_1_score
-    end
-
-    if @player_1_score == Forty && @player_2_score == Thirty
-      return Deuce
     end
 
     if @player_2_score == Thirty
