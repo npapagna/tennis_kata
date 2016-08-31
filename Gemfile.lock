@@ -3,6 +3,7 @@ GEM
   specs:
     diff-lcs (1.2.5)
     docile (1.1.5)
+    error_handling_protocol (0.0.1)
     json (1.8.3)
     rspec (3.4.0)
       rspec-core (~> 3.4.0)
@@ -27,5 +28,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  error_handling_protocol
   rspec
   simplecov
+
+BUNDLED WITH
+   1.12.5

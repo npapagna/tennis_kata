@@ -1,4 +1,7 @@
 require 'spec_helper'
+require_relative 'game_score'
+require_relative 'finished_game_score'
+require_relative 'non_finished_game_score'
 
 class DeucePoint
 
@@ -19,7 +22,7 @@ class AdvantagePlayer2
   end
 
   def player_2_scored
-    GameScore.new Forty, Game
+    GameScore.non_finished Forty, Game
   end
 
 end
@@ -27,7 +30,7 @@ end
 class AdvantagePlayer1
 
   def player_1_scored
-    GameScore.new Game, Forty
+    GameScore.non_finished Game, Forty
   end
 
   def player_2_scored
@@ -38,35 +41,12 @@ end
 
 Game = Object.new
 
-class FinalGameScore
-
-  attr_reader :player_1_points, :player_2_points
-
-  def initialize player_1_score, player_2_score
-    @player_1_points = player_1_score
-    @player_2_points = player_2_score
-  end
-
-  def player_1_scored
-    notify_game_is_over
-  end
-
-  def player_2_scored
-    notify_game_is_over
-  end
-
-  def notify_game_is_over
-    fail 'Game over'
-  end
-
-end
-
 class FortyPoint
   def player_1_scored opponent_score
-    FinalGameScore.new Game, opponent_score
+    GameScore.finished Game, opponent_score
   end
   def player_2_scored opponent_score
-    FinalGameScore.new opponent_score, Game
+    GameScore.finished opponent_score, Game
   end
 end
 
@@ -78,13 +58,13 @@ class ThirtyPoint
       return Deuce
     end
 
-    GameScore.new Forty, opponent_score
+    GameScore.non_finished Forty, opponent_score
   end
   def player_2_scored opponent_score
     if opponent_score == Forty
       return Deuce
     end
-    GameScore.new opponent_score, Forty
+    GameScore.non_finished opponent_score, Forty
   end
 end
 
@@ -92,10 +72,10 @@ Thirty = ThirtyPoint.new
 
 class FifteenPoint
   def player_1_scored opponent_score
-    GameScore.new Thirty, opponent_score
+    GameScore.non_finished Thirty, opponent_score
   end
   def player_2_scored opponent_score
-    GameScore.new opponent_score, Thirty
+    GameScore.non_finished opponent_score, Thirty
   end
 end
 
@@ -104,11 +84,11 @@ Fifteen = FifteenPoint.new
 class LovePoint
 
   def player_1_scored opponent_score
-    GameScore.new Fifteen, opponent_score
+    GameScore.non_finished Fifteen, opponent_score
   end
 
-   def player_2_scored opponent_score
-    GameScore.new opponent_score, Fifteen
+  def player_2_scored opponent_score
+    GameScore.non_finished opponent_score, Fifteen
   end
 
 end
@@ -120,37 +100,14 @@ Deuce = DeucePoint.new
 AdvantagePlayer1 = AdvantagePlayer1.new
 AdvantagePlayer2 = AdvantagePlayer2.new
 
-class GameScore
 
-  def initialize a=Love, b=Love
-    @player_1_score = a
-    @player_2_score = b
-  end
-
-  def player_1_points
-    @player_1_score
-  end
-
-  def player_2_points
-    @player_2_score
-  end
-
-  def player_1_scored
-    @player_1_score.player_1_scored @player_2_score
-  end
-
-  def player_2_scored
-    @player_2_score.player_2_scored @player_1_score
-  end
-
-end
 
 class TennisGame
 
   attr_reader :game_score
 
   def initialize
-    @game_score = GameScore.new
+    @game_score = GameScore.non_finished Love, Love
     @player_1_serving = true
   end
 
