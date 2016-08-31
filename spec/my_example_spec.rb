@@ -36,7 +36,23 @@ class AdvantagePlayer1
 
 end
 
-Game = :game
+class GamePoint
+
+  def player_1_scored opponent_score
+    notify_game_is_over
+  end
+
+  def notify_game_is_over
+    fail 'Game over'
+  end
+
+  def player_2_scored opponent_score
+    notify_game_is_over
+  end
+
+end
+
+Game = GamePoint.new
 
 class FortyPoint
   def player_1_scored opponent_score
@@ -128,7 +144,7 @@ class GameScore
       return @player_1_score.player_1_scored @player_2_score
     end
 
-    fail 'Game over'
+    @player_1_score.player_1_scored @player_2_score
   end
 
   def player_2_scored
@@ -152,7 +168,7 @@ class GameScore
       return @player_2_score.player_2_scored @player_1_score
     end
 
-    fail 'Game over'
+    @player_2_score.player_2_scored @player_1_score
   end
 
 end
