@@ -5,62 +5,16 @@ require_relative 'non_finished_game_score'
 require_relative 'deuce_game_score'
 require_relative 'advantage_player1_game_score'
 require_relative 'advantage_player2_game_score'
-
-Game = Object.new
-
-class FortyPoint
-  def player_1_scored opponent_score
-    GameScore.finished Game, opponent_score
-  end
-  def player_2_scored opponent_score
-    GameScore.finished opponent_score, Game
-  end
-end
-
-Forty = FortyPoint.new
-
-class ThirtyPoint
-  def player_1_scored opponent_score
-    if opponent_score == Forty
-      return GameScore.deuce
-    end
-
-    GameScore.non_finished Forty, opponent_score
-  end
-  def player_2_scored opponent_score
-    if opponent_score == Forty
-      return GameScore.deuce
-    end
-    GameScore.non_finished opponent_score, Forty
-  end
-end
-
-Thirty = ThirtyPoint.new
-
-class FifteenPoint
-  def player_1_scored opponent_score
-    GameScore.non_finished Thirty, opponent_score
-  end
-  def player_2_scored opponent_score
-    GameScore.non_finished opponent_score, Thirty
-  end
-end
-
-Fifteen = FifteenPoint.new
-
-class LovePoint
-
-  def player_1_scored opponent_score
-    GameScore.non_finished Fifteen, opponent_score
-  end
-
-  def player_2_scored opponent_score
-    GameScore.non_finished opponent_score, Fifteen
-  end
-
-end
+require_relative 'points/love_point'
+require_relative 'points/fifteen_point'
+require_relative 'points/thirty_point'
+require_relative 'points/forty_point'
 
 Love = LovePoint.new
+Fifteen = FifteenPoint.new
+Thirty = ThirtyPoint.new
+Game = Object.new
+Forty = FortyPoint.new
 
 class TennisGame
 
