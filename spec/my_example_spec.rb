@@ -36,11 +36,56 @@ class AdvantagePlayer1
 
 end
 
-Love = :love
-Fifteen = :fifteen
-Thirty = :thirty
-Forty = :forty
 Game = :game
+
+class FortyPoint
+  def player_1_scored opponent_score
+    GameScore.new Game, opponent_score
+  end
+  def player_2_scored opponent_score
+    GameScore.new opponent_score, Game
+  end
+end
+
+Forty = FortyPoint.new
+
+class ThirtyPoint
+  def player_1_scored opponent_score
+    GameScore.new Forty, opponent_score
+  end
+  def player_2_scored opponent_score
+    GameScore.new opponent_score, Forty
+  end
+end
+
+Thirty = ThirtyPoint.new
+
+class FifteenPoint
+  def player_1_scored opponent_score
+    GameScore.new Thirty, opponent_score
+  end
+  def player_2_scored opponent_score
+    GameScore.new opponent_score, Thirty
+  end
+end
+
+Fifteen = FifteenPoint.new
+
+class LovePoint
+
+  def player_1_scored opponent_score
+    GameScore.new Fifteen, opponent_score
+  end
+
+   def player_2_scored opponent_score
+    GameScore.new opponent_score, Fifteen
+  end
+
+end
+
+Love = LovePoint.new
+
+
 Deuce = DeucePoint.new
 AdvantagePlayer1 = AdvantagePlayer1.new
 AdvantagePlayer2 = AdvantagePlayer2.new
@@ -49,9 +94,9 @@ GamePlayer2 = :gamePlayer2
 
 class GameScore
 
-  def initialize
-    @player_1_score = Love
-    @player_2_score = Love
+  def initialize a=Love, b=Love
+    @player_1_score = a
+    @player_2_score = b
   end
 
   def player_1
@@ -64,13 +109,11 @@ class GameScore
 
   def player_1_scored
     if @player_1_score == Love
-      @player_1_score = Fifteen
-      return self
+      return @player_1_score.player_1_scored @player_2_score
     end
 
     if @player_1_score == Fifteen
-      @player_1_score = Thirty
-      return self
+      return @player_1_score.player_1_scored @player_2_score
     end
 
     if @player_1_score == Thirty && @player_2_score == Forty
@@ -78,13 +121,11 @@ class GameScore
     end
 
     if @player_1_score == Thirty
-      @player_1_score = Forty
-      return self
+      return @player_1_score.player_1_scored @player_2_score
     end
 
     if @player_1_score == Forty
-      @player_1_score = Game
-      return self
+      return @player_1_score.player_1_scored @player_2_score
     end
 
     fail 'Game over'
@@ -92,13 +133,11 @@ class GameScore
 
   def player_2_scored
     if @player_2_score == Love
-      @player_2_score = Fifteen
-      return self
+      return @player_2_score.player_2_scored @player_1_score
     end
 
     if @player_2_score == Fifteen
-      @player_2_score = Thirty
-      return self
+      return @player_2_score.player_2_scored @player_1_score
     end
 
     if @player_1_score == Forty && @player_2_score == Thirty
@@ -106,13 +145,11 @@ class GameScore
     end
 
     if @player_2_score == Thirty
-      @player_2_score = Forty
-      return self
+      return @player_2_score.player_2_scored @player_1_score
     end
 
     if @player_2_score == Forty
-      @player_2_score = Game
-      return self
+      return @player_2_score.player_2_scored @player_1_score
     end
 
     fail 'Game over'
