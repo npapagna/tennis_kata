@@ -1,66 +1,84 @@
 require 'spec_helper'
 
-class TennisGame
+class GameScore
 
   def initialize
-    @player_1_serving = true
     @player_1_score = 0
     @player_2_score = 0
   end
 
-  def player_1_score
+  def player_1
     @player_1_score
   end
 
-  def player_2_score
+  def player_2
     @player_2_score
+  end
+
+  def player_1_scored
+    if @player_1_score == 0
+      @player_1_score = 15
+      return
+    end
+
+    if @player_1_score == 15
+      @player_1_score = 30
+      return
+    end
+
+    if @player_1_score == 30
+      @player_1_score = 40
+      return
+    end
+
+    if @player_1_score == 40
+      @player_1_score = :game
+      return
+    end
+
+    fail 'Game over'
+  end
+
+  def player_2_scored
+    if @player_2_score == 0
+      @player_2_score = 15
+      return
+    end
+
+    if @player_2_score == 15
+      @player_2_score = 30
+      return
+    end
+
+    if @player_2_score == 30
+      @player_2_score = 40
+      return
+    end
+
+    if @player_2_score == 40
+      @player_2_score = :game
+      return
+    end
+
+    fail 'Game over'
+  end
+
+end
+
+class TennisGame
+
+  attr_reader :game_score
+
+  def initialize
+    @game_score = GameScore.new
+    @player_1_serving = true
   end
 
   def win_point
     if @player_1_serving
-      if @player_1_score == 0
-        @player_1_score = 15
-        return
-      end
-
-      if @player_1_score == 15
-        @player_1_score = 30
-        return
-      end
-
-      if @player_1_score == 30
-        @player_1_score = 40
-        return
-      end
-
-      if @player_1_score == 40
-        @player_1_score = :game
-        return
-      end
-
-      fail 'Game over'
+      @game_score.player_1_scored
     else
-      if @player_2_score == 0
-        @player_2_score = 15
-        return
-      end
-
-      if @player_2_score == 15
-        @player_2_score = 30
-        return
-      end
-
-      if @player_2_score == 30
-        @player_2_score = 40
-        return
-      end
-
-      if @player_2_score == 40
-        @player_2_score = :game
-        return
-      end
-
-      fail 'Game over'
+      @game_score.player_2_scored
     end
   end
 
@@ -185,8 +203,8 @@ describe 'My behaviour' do
   end
 
   def assert_game_score_is player_1_score, player_2_score
-    expect(tennis_game.player_1_score).to eq player_1_score
-    expect(tennis_game.player_2_score).to eq player_2_score
+    expect(tennis_game.game_score.player_1).to eq player_1_score
+    expect(tennis_game.game_score.player_2).to eq player_2_score
   end
 
 end
