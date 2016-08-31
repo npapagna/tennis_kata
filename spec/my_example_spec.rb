@@ -1,5 +1,8 @@
 require 'spec_helper'
 
+
+Deuce = :deuce
+
 class GameScore
 
   def initialize
@@ -79,6 +82,10 @@ class TennisGame
       @game_score.player_1_scored
     else
       @game_score.player_2_scored
+    end
+
+    if @game_score.player_1 == 40 && @game_score.player_2 == 40
+      @game_score = Deuce
     end
   end
 
@@ -200,6 +207,18 @@ describe 'My behaviour' do
     tennis_game.win_point
 
     assert_game_score_is fifteen, love
+  end
+
+  it '014' do
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.lose_point
+    tennis_game.win_point
+    tennis_game.win_point
+    tennis_game.win_point
+
+    expect(tennis_game.game_score).to eq Deuce
   end
 
   def assert_game_score_is player_1_score, player_2_score
