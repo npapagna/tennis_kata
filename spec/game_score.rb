@@ -4,6 +4,14 @@ class GameScore
     @deuce ||= DeuceGameScore.new
   end
 
+  def self.advantage_player_1
+    @advantage_player_1 ||= AdvantagePlayer1GameScore.new
+  end
+
+  def self.advantage_player_2
+    @advantage_player_2 ||= AdvantagePlayer2GameScore.new
+  end
+
   def self.non_finished player_points, opponent_points
     NonFinishedGameScore.new player_points, opponent_points
   end

@@ -3,30 +3,8 @@ require_relative 'game_score'
 require_relative 'finished_game_score'
 require_relative 'non_finished_game_score'
 require_relative 'deuce_game_score'
-
-class AdvantagePlayer2
-
-  def player_1_scored
-    GameScore.deuce
-  end
-
-  def player_2_scored
-    GameScore.non_finished Forty, Game
-  end
-
-end
-
-class AdvantagePlayer1
-
-  def player_1_scored
-    GameScore.non_finished Game, Forty
-  end
-
-  def player_2_scored
-    GameScore.deuce
-  end
-
-end
+require_relative 'advantage_player1_game_score'
+require_relative 'advantage_player2_game_score'
 
 Game = Object.new
 
@@ -84,11 +62,6 @@ end
 
 Love = LovePoint.new
 
-AdvantagePlayer1 = AdvantagePlayer1.new
-AdvantagePlayer2 = AdvantagePlayer2.new
-
-
-
 class TennisGame
 
   attr_reader :game_score
@@ -120,6 +93,8 @@ describe 'My behaviour' do
   let(:forty) { Forty }
   let(:game) { Game }
   let(:deuce) { GameScore.deuce }
+  let(:advantage_player_1) { GameScore.advantage_player_1 }
+  let(:advantage_player_2)  {GameScore.advantage_player_2 }
   let(:tennis_game) { TennisGame.new }
 
   it '001' do
@@ -262,7 +237,7 @@ describe 'My behaviour' do
     tennis_game.win_point
     tennis_game.win_point
 
-    expect(tennis_game.game_score).to eq AdvantagePlayer2
+    expect(tennis_game.game_score).to eq advantage_player_2
   end
 
   it '016' do
@@ -276,7 +251,7 @@ describe 'My behaviour' do
     tennis_game.win_point
     tennis_game.win_point
 
-    expect(tennis_game.game_score).to eq AdvantagePlayer1
+    expect(tennis_game.game_score).to eq advantage_player_1
   end
 
   it '017' do

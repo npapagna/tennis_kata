@@ -1,11 +1,11 @@
 class DeuceGameScore < GameScore
 
   def player_1_scored
-    AdvantagePlayer1
+    GameScore.advantage_player_1
   end
 
   def player_2_scored
-    AdvantagePlayer2
+    GameScore.advantage_player_2
   end
 
 end
