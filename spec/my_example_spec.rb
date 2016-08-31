@@ -1,13 +1,17 @@
 require 'spec_helper'
 
-
+Love = :love
+Fifteen = :fifteen
+Thirty = :thirty
+Forty = :forty
+Game = :game
 Deuce = :deuce
 
 class GameScore
 
   def initialize
-    @player_1_score = 0
-    @player_2_score = 0
+    @player_1_score = Love
+    @player_2_score = Love
   end
 
   def player_1
@@ -19,23 +23,23 @@ class GameScore
   end
 
   def player_1_scored
-    if @player_1_score == 0
-      @player_1_score = 15
+    if @player_1_score == Love
+      @player_1_score = Fifteen
       return
     end
 
-    if @player_1_score == 15
-      @player_1_score = 30
+    if @player_1_score == Fifteen
+      @player_1_score = Thirty
       return
     end
 
-    if @player_1_score == 30
-      @player_1_score = 40
+    if @player_1_score == Thirty
+      @player_1_score = Forty
       return
     end
 
-    if @player_1_score == 40
-      @player_1_score = :game
+    if @player_1_score == Forty
+      @player_1_score = Game
       return
     end
 
@@ -43,23 +47,23 @@ class GameScore
   end
 
   def player_2_scored
-    if @player_2_score == 0
-      @player_2_score = 15
+    if @player_2_score == Love
+      @player_2_score = Fifteen
       return
     end
 
-    if @player_2_score == 15
-      @player_2_score = 30
+    if @player_2_score == Fifteen
+      @player_2_score = Thirty
       return
     end
 
-    if @player_2_score == 30
-      @player_2_score = 40
+    if @player_2_score == Thirty
+      @player_2_score = Forty
       return
     end
 
-    if @player_2_score == 40
-      @player_2_score = :game
+    if @player_2_score == Forty
+      @player_2_score = Game
       return
     end
 
@@ -84,7 +88,7 @@ class TennisGame
       @game_score.player_2_scored
     end
 
-    if @game_score.player_1 == 40 && @game_score.player_2 == 40
+    if @game_score.player_1 == Forty && @game_score.player_2 == Forty
       @game_score = Deuce
     end
   end
@@ -97,11 +101,11 @@ end
 
 describe 'My behaviour' do
 
-  let(:love) { 0 }
-  let(:fifteen) { 15 }
-  let(:thirty) { 30 }
-  let(:forty) { 40 }
-  let(:game) { :game }
+  let(:love) { Love }
+  let(:fifteen) { Fifteen }
+  let(:thirty) { Thirty }
+  let(:forty) { Forty }
+  let(:game) { Game }
   let(:tennis_game) { TennisGame.new }
 
   it '001' do
